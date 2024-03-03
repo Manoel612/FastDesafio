@@ -1,0 +1,6 @@
+@FastDesafio_HostAddress = http://localhost:5221
+
+GET {{FastDesafio_HostAddress}}/workshopcontroller/
+Accept: application/json
+
+###
