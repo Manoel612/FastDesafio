@@ -218,12 +218,6 @@ namespace FastDesafio.Services
                     response.Message = "Ata de presença inexistente";
                     return response;
                 }
-                if (record.CollaboratorIds.IndexOf(collaboratorId) == -1)
-                {
-                    response.IsSuccess = false;
-                    response.Message = "Ata de presença ja não possui esse colaborador";
-                    return response;
-                }
 
                 CollaboratorModel collaborator = _dataContext.DbCollaborators.FirstOrDefault(x => x.Id == collaboratorId);
                 if (collaborator == null)

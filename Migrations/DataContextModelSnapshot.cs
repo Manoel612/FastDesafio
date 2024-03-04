@@ -36,7 +36,7 @@ namespace FastDesafio.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DbCollaborators");
+                    b.ToTable("DbCollaborators", (string)null);
                 });
 
             modelBuilder.Entity("FastDesafio.Models.RecordModel", b =>
@@ -56,7 +56,7 @@ namespace FastDesafio.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DbRecord");
+                    b.ToTable("DbRecord", (string)null);
                 });
 
             modelBuilder.Entity("FastDesafio.Models.WorkshopModel", b =>
@@ -80,7 +80,7 @@ namespace FastDesafio.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DbWorkshop");
+                    b.ToTable("DbWorkshop", (string)null);
                 });
 #pragma warning restore 612, 618
         }
