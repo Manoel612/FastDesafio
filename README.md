@@ -4,8 +4,7 @@
 3. Sobre Banco de dados:
     <p>Inicie o SQL Server na sua maquina;</p>
     <p>No arquivo "appsettings.json" mude a string de conexão para o seu banco</p>
-    <p>"ConnectionStrings": {</p>
-    <p> "DefaultConnection": "Data source = 'nome do servidor' ; database = DesafioFastAPI; Trusted_connection = true; Encrypt = false; TrustServerCertificate = true"}</p>
+    <p>"ConnectionStrings": {"DefaultConnection": "Data source = 'nome do servidor' ; database = DesafioFastAPI; Trusted_connection = true; Encrypt = false; TrustServerCertificate = true"}</p>
    
      
       
