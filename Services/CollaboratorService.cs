@@ -94,7 +94,6 @@ namespace FastDesafio.Services
                     return response;
                 }
 
-                collaborator.Id = updateCollaborator.Id;
                 collaborator.Name = updateCollaborator.Name;
 
                 await _dataContext.SaveChangesAsync();

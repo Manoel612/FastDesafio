@@ -26,6 +26,9 @@ namespace FastDesafio.Controllers
             return Ok(response);
         }
 
+        /*
+         * Se tem uma lista por workshop e não pode ser criada sem o workshop não faz sentido existir post
+         * 
         [HttpPost]
         public async Task<ActionResult<ResponseModel<RecordModel>>> PostRecord(RecordModel record)
         {
@@ -37,6 +40,7 @@ namespace FastDesafio.Controllers
             }
             return Ok(response);
         }
+        */
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ResponseModel<RecordModel>>> GetOneRecord(int id)

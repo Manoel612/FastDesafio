@@ -2,6 +2,7 @@
 using FastDesafio.Data;
 using FastDesafio.Interfaces;
 using FastDesafio.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FastDesafio.Services
 {  
@@ -40,12 +41,27 @@ namespace FastDesafio.Services
 
                     return response;
                 }
+                WorkshopModel workshopExisting = _dataContext.DbWorkshop.FirstOrDefault(x => x.Name == workshop.Name);
+                if( workshopExisting != null)
+                {
+                    response.Message = "Já existe um workshop com esse nome";
+                    response.IsSuccess = false;
 
-                _dataContext.Add(workshop);
+                    return response;
+                }
+                
+                await _dataContext.AddAsync(workshop);
                 await _dataContext.SaveChangesAsync();
+                response.Message = "Workshop salvo no banco";
+
+                int workshopId = _dataContext.DbWorkshop.FirstOrDefault(x => x.Name == workshop.Name).Id;
+                RecordModel record = new RecordModel() { WorkshopId = workshopId };
+
+                await _dataContext.AddAsync(record);
+                await _dataContext.SaveChangesAsync();
+                response.Message += "\nLista de presença criada no banco" ; 
 
                 response.Data = workshop;
-                response.Message = "Dados salvos no banco";
             }
             catch (Exception ex)
             {
@@ -94,7 +110,6 @@ namespace FastDesafio.Services
 
                     return response;
                 }
-                workshop.Id = updateWorkshop.Id;
                 workshop.Name = updateWorkshop.Name;
                 workshop.Description = updateWorkshop.Description;
                 workshop.RealizationDate = updateWorkshop.RealizationDate;

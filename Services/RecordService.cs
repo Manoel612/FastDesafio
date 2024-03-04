@@ -20,7 +20,7 @@ namespace FastDesafio.Services
             ResponseModel<List<RecordModel>> response = new ResponseModel<List<RecordModel>>();
             try
             {
-                response.Data = _dataContext.DbRecord.ToList();
+                response.Data = await _dataContext.DbRecord.ToListAsync();
                 response.Message = "Lista de dados retornada";
             }
             catch (Exception ex)
@@ -31,7 +31,8 @@ namespace FastDesafio.Services
             return response;
 
         }
-
+        //
+        /*
         public async Task<ResponseModel<RecordModel>> PostRecord(RecordModel record)
         {
             ResponseModel<RecordModel> response = new ResponseModel<RecordModel>();
@@ -53,20 +54,20 @@ namespace FastDesafio.Services
                     return response;
                 }
 
-                /*WorkshopModel workshopExistent = _dataContext.DbWorkshop.FirstOrDefault(x => x.Id == record.WorkshopId);
+                WorkshopModel workshopExistent = await _dataContext.DbWorkshop.FirstAsync(x => x.Id == record.WorkshopId);
+                response.Message = "workshop: " + workshopExistent;
                 if (recordExistent == null)
                 {
-                    //response.Data = workshopExistent;
-                    response.Message = ("Workshop inexistente {0}" + workshopExistent);
+                    response.Message = ("Workshop inexistente " + workshopExistent);
                     response.IsSuccess = false;
                     return response;
-                }*/
+                }
 
                 _dataContext.Add(record);
                 await _dataContext.SaveChangesAsync();
 
                 response.Data = record;
-                response.Message = "Dados salvos no banco";
+                //response.Message = "Dados salvos no banco";
             }
             catch (Exception ex)
             {
@@ -74,7 +75,7 @@ namespace FastDesafio.Services
                 response.IsSuccess = false;
             }
             return response;
-        }
+        }*/
 
         public async Task<ResponseModel<RecordModel>> GetOneRecord(int id)
         {
@@ -116,8 +117,8 @@ namespace FastDesafio.Services
                     return response;
                 }
 
-                record.Id = updateRecord.Id;
                 record.WorkshopId = updateRecord.WorkshopId;
+                record.CollaboratorIds = updateRecord.CollaboratorIds;
 
                 await _dataContext.SaveChangesAsync();
 
@@ -160,6 +161,7 @@ namespace FastDesafio.Services
             }
             return response;
         }
+
 
         public async Task<ResponseModel<CollaboratorModel>> AddCollaborator(int collaboratorId, int recordId)
         {
@@ -214,6 +216,12 @@ namespace FastDesafio.Services
                 {
                     response.IsSuccess = false;
                     response.Message = "Ata de presença inexistente";
+                    return response;
+                }
+                if (record.CollaboratorIds.IndexOf(collaboratorId) == -1)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Ata de presença ja não possui esse colaborador";
                     return response;
                 }
 
